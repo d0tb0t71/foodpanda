@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:foodpanda/admin_login.dart';
-import 'package:foodpanda/customer_login.dart';
-import 'package:foodpanda/customer_register.dart';
+import 'package:foodpanda/login_register/admin_login.dart';
+import 'package:foodpanda/login_register/customer_login.dart';
+import 'package:foodpanda/login_register/customer_register.dart';
 
 class CustomerPage extends StatelessWidget {
   const CustomerPage({super.key});

@@ -29,6 +29,13 @@
             {
               "client_id": "564863880384-8udji1cn1lrcj2poqilr7h4jv1houlm3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "564863880384-qkiqqvu54q00udmvjpatgnlp9mh9bpud.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.foodpanda"
+              }
             }
           ]
         }

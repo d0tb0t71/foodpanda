@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodpanda/admin_login.dart';
-import 'package:foodpanda/admin_register.dart';
+import 'package:foodpanda/login_register/admin_login.dart';
+import 'package:foodpanda/login_register/admin_register.dart';
 
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});
