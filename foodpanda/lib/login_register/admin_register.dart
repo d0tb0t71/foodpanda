@@ -2,10 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpanda/home_screen.dart';
+import 'package:foodpanda/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminRegister extends StatefulWidget {
-  const AdminRegister({super.key});
+  AdminRegister({super.key, required this.role});
+
+  String role;
 
   @override
   State<AdminRegister> createState() => _AdminRegisterState();
@@ -32,37 +36,10 @@ class _AdminRegisterState extends State<AdminRegister> {
     super.dispose();
   }
 
-  register(String name, String email, String mobile, String address,
-      String password, String cPassword) async {
-    await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-            email: email.trim(), password: password.trim())
-        .then((value) => FirebaseFirestore.instance
-                .collection("admin")
-                .doc(value.user!.uid)
-                .set(
-              {
-                "name": name,
-                "email": value.user!.email,
-                "mobile": mobile,
-                "address": address,
-                "uid": value.user?.uid
-              },
-            ))
-        .then((value) async {
-      // Obtain shared preferences.
-      final prefs = await SharedPreferences.getInstance();
-
-      await prefs.setString('userType', 'admin');
-
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    var pro = Provider.of<Authentication>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Admin Register"),
@@ -133,8 +110,14 @@ class _AdminRegisterState extends State<AdminRegister> {
           ),
           ElevatedButton(
               onPressed: () {
-                register(name.text, email.text, mobile.text, address.text,
-                    password.text, cPassword.text);
+                pro.signUp(
+                    name: name.text,
+                    email: email.text,
+                    password: password.text,
+                    address: address.text,
+                    mobile: mobile.text,
+                    role: widget.role,
+                    context: context);
               },
               child: Text("Register Now"))
         ]),

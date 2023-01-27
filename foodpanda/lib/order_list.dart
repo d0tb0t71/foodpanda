@@ -1,64 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:foodpanda/add_product.dart';
-import 'package:foodpanda/profile_page.dart';
 import 'package:foodpanda/provider/profile_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import 'food_details.dart';
-import 'order_list.dart';
+import 'order_details.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class OrderList extends StatefulWidget {
+  OrderList({super.key , required this.uid});
+
+  String uid;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<OrderList> createState() => _OrderListState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-
-  @override
-  void initState() {
-    
-    // TODO: implement initState
-    super.initState();
-  }
-
+class _OrderListState extends State<OrderList> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
 
     var pro = Provider.of<ProfileProvider>(context);
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
         title: Text("Foodpanda Homescreen"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => OrderList(uid: pro.currentUserUid))));
-              },
-              icon: Icon(Icons.list)),
-
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => ProfileScreen())));
-              },
-              icon: Icon(Icons.person))
-        ],
+        actions: [],
       ),
       body: Container(
           height: size.height,
           child: Expanded(
             child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
-                    .collection("products")
-                    .doc(pro.currentUserUid)
-                    .collection("allProducts")
+                    .collection("orders")
+                    .doc("order")
+                    .collection(pro.currentUserUid)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -76,16 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 }),
           )),
-      floatingActionButton: pro.role == "admin"
-          ? FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => AddProduct()));
-              },
-              backgroundColor: Colors.green,
-              child: const Icon(Icons.add),
-            )
-          : Container(),
     );
   }
 
@@ -108,17 +73,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 60,
                       ),
                       Spacer(),
-                      Text(data.docs[index]["name"]),
+                      Text(data.docs[index]["foodName"]),
                       Spacer(),
                       ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: ((context) => FoodDetails(
-                                          foodName: data.docs[index]["name"],
-                                          foodPrice: data.docs[index]["price"],
-                                          foodDes: data.docs[index]["des"], shopID: "",
+                                    builder: ((context) => OrderDetails(
+                                          foodName: data.docs[index]["foodName"],
+                                          foodPrice: data.docs[index]["foodPrice"],
+                                          orderBy: data.docs[index]["orderBy"],
+                                          mobile: data.docs[index]["mobile"],
+                                          address: data.docs[index]["address"],
                                         ))));
                           },
                           child: Text("Details"))
@@ -131,4 +98,5 @@ class _HomeScreenState extends State<HomeScreen> {
       itemCount: data.size,
     );
   }
+
 }

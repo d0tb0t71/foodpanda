@@ -1,19 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodpanda/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../home_screen.dart';
 
 class CustomerRegister extends StatefulWidget {
-  const CustomerRegister({super.key});
+  CustomerRegister({super.key, required this.role});
+
+  String role;
 
   @override
   State<CustomerRegister> createState() => _CustomerRegisterState();
 }
 
 class _CustomerRegisterState extends State<CustomerRegister> {
-
   TextEditingController email = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController mobile = TextEditingController();
@@ -34,39 +37,10 @@ class _CustomerRegisterState extends State<CustomerRegister> {
     super.dispose();
   }
 
-  register(String name , String email , String mobile , String address , String password , String cPassword) async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email.trim(), password: password.trim()).then((value) => FirebaseFirestore.instance
-                .collection("customer")
-                .doc(value.user!.uid)
-                .set(
-              {
-                "name": name,
-                "email": value.user!.email,
-                "mobile": mobile,
-                "address": address,
-                "uid": value.user?.uid
-              },
-            ))
-        .then((value) async {
-
-{
-      // Obtain shared preferences.
-      final prefs = await SharedPreferences.getInstance();
-
-      await prefs.setString('userType', 'customer');
-
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-
-    }
-
-        });
-  }
-
-
   @override
   Widget build(BuildContext context) {
+    var pro = Provider.of<Authentication>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Customer Register"),
@@ -137,7 +111,14 @@ class _CustomerRegisterState extends State<CustomerRegister> {
           ),
           ElevatedButton(
               onPressed: () {
-                register(name.text , email.text , mobile.text , address.text ,password.text , cPassword.text);
+                pro.signUp(
+                    name: name.text,
+                    email: email.text,
+                    password: password.text,
+                    address: address.text,
+                    mobile: mobile.text,
+                    role: widget.role,
+                    context: context);
               },
               child: Text("Register Now"))
         ]),

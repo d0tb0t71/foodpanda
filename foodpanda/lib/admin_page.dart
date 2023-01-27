@@ -21,7 +21,7 @@ class AdminPage extends StatelessWidget {
             SizedBox(height:  10,),
             ElevatedButton(
                 onPressed: (() => Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => AdminRegister())))),
+                    MaterialPageRoute(builder: ((context) => AdminRegister(role: 'admin',))))),
                 child: Text("Register")),
 
           ],

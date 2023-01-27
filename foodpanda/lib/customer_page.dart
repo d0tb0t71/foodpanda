@@ -22,7 +22,7 @@ class CustomerPage extends StatelessWidget {
             SizedBox(height:  10,),
             ElevatedButton(
                 onPressed: (() => Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => CustomerRegister())))),
+                    MaterialPageRoute(builder: ((context) => CustomerRegister(role: 'customer',))))),
                 child: Text("Register")),
 
           ],

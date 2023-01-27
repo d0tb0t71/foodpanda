@@ -10,18 +10,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'food_details.dart';
 import 'order_list.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ProductList extends StatefulWidget {
+
+   ProductList({super.key , required this.shopID});
+
+  String shopID;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ProductList> createState() => _ProductListState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-
+class _ProductListState extends State<ProductList> {
   @override
   void initState() {
-    
     // TODO: implement initState
     super.initState();
   }
@@ -34,22 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Foodpanda Homescreen"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => OrderList(uid: pro.currentUserUid))));
-              },
-              icon: Icon(Icons.list)),
+        title: Text("Product List"),
 
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => ProfileScreen())));
-              },
-              icon: Icon(Icons.person))
-        ],
       ),
       body: Container(
           height: size.height,
@@ -57,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection("products")
-                    .doc(pro.currentUserUid)
+                    .doc(widget.shopID)
                     .collection("allProducts")
                     .snapshots(),
                 builder: (context, snapshot) {
@@ -118,7 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     builder: ((context) => FoodDetails(
                                           foodName: data.docs[index]["name"],
                                           foodPrice: data.docs[index]["price"],
-                                          foodDes: data.docs[index]["des"], shopID: "",
+                                          foodDes: data.docs[index]["des"], 
+                                          shopID: widget.shopID,
                                         ))));
                           },
                           child: Text("Details"))

@@ -1,8 +1,14 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpanda/customer_page.dart';
 import 'package:foodpanda/home_screen.dart';
+import 'package:foodpanda/provider/auth_provider.dart';
+import 'package:foodpanda/provider/profile_provider.dart';
+import 'package:provider/provider.dart';
+import 'dash_board.dart';
 import 'firebase_options.dart';
 
 import 'admin_page.dart';
@@ -21,12 +27,47 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => Authentication()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Initial(),
       ),
-      home: const MiddleOfHomeAndSignIn(),
+    );
+  }
+}
+
+class Initial extends StatefulWidget {
+  const Initial({Key? key}) : super(key: key);
+
+  @override
+  State<Initial> createState() => _InitialState();
+}
+
+class _InitialState extends State<Initial> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Scaffold(body: Center(child: Text("Error")));
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return const MiddleOfHomeAndSignIn();
+        }
+        return const Scaffold(
+            body: Center(child: Text("Something Went Wrong")));
+      },
     );
   }
 }
@@ -49,17 +90,28 @@ class MiddleOfHomeAndSignIn extends StatefulWidget {
 
 class _MiddleOfHomeAndSignInState extends State<MiddleOfHomeAndSignIn> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<ProfileProvider>(context, listen: false).getUserInfo();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(color: Colors.orange),
-          );
+          return CircularProgressIndicator();
         }
         if (snapshot.data != null) {
-          return const HomeScreen();
+          Timer(Duration(seconds: 5), () {
+            Navigator.pop(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => DashBoard()));
+          });
+
+          return CircularProgressIndicator();
         }
         return const MyHomePage(title: "Foodpanda");
       },

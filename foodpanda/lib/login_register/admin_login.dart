@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpanda/home_screen.dart';
+import 'package:foodpanda/provider/auth_provider.dart';
+import 'package:foodpanda/provider/profile_provider.dart';
+import 'package:provider/provider.dart';
 
 class AdminLogin extends StatefulWidget {
   const AdminLogin({super.key});
@@ -23,16 +26,10 @@ class _AdminLoginState extends State<AdminLogin> {
     super.dispose();
   }
 
-  _login() async {
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-            email: email.text.trim(), password: password.text.trim())
-        .then((value) => Navigator.push(
-            context, MaterialPageRoute(builder: (_) => const HomeScreen())));
-  }
-
   @override
   Widget build(BuildContext context) {
+    var pro = Provider.of<Authentication>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Admin Login"),
@@ -65,7 +62,7 @@ class _AdminLoginState extends State<AdminLogin> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  _login();
+                  pro.signIn(email.text, password.text, context);
                 },
                 child: const Text("Log In Now")),
           ],
