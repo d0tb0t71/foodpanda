@@ -11,8 +11,7 @@ import 'food_details.dart';
 import 'order_list.dart';
 
 class ProductList extends StatefulWidget {
-
-   ProductList({super.key , required this.shopID});
+  ProductList({super.key, required this.shopID});
 
   String shopID;
 
@@ -36,7 +35,7 @@ class _ProductListState extends State<ProductList> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Product List"),
-
+        backgroundColor: Colors.pinkAccent,
       ),
       body: Container(
           height: size.height,
@@ -83,7 +82,7 @@ class _ProductListState extends State<ProductList> {
         return data.size != null
             ? Container(
                 height: 80,
-                color: Colors.amber,
+                color: Colors.pinkAccent,
                 margin: EdgeInsets.all(5),
                 padding: EdgeInsets.all(5),
                 child: Center(
@@ -98,6 +97,8 @@ class _ProductListState extends State<ProductList> {
                       Text(data.docs[index]["name"]),
                       Spacer(),
                       ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.white, minimumSize: Size(80, 40)),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -105,11 +106,14 @@ class _ProductListState extends State<ProductList> {
                                     builder: ((context) => FoodDetails(
                                           foodName: data.docs[index]["name"],
                                           foodPrice: data.docs[index]["price"],
-                                          foodDes: data.docs[index]["des"], 
+                                          foodDes: data.docs[index]["des"],
                                           shopID: widget.shopID,
                                         ))));
                           },
-                          child: Text("Details"))
+                          child: Text(
+                            "Details",
+                            style: TextStyle(color: Colors.black),
+                          ))
                     ],
                   ),
                 ),

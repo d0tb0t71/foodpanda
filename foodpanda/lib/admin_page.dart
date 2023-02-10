@@ -8,18 +8,27 @@ class AdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Admin Page"),),
+      appBar: AppBar(title: Text("Admin Page"),
+      backgroundColor: Colors.pinkAccent,),
       body:  Center(
         child : Column (
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.pinkAccent,
+                minimumSize: Size(200, 60)
+              ),
                 onPressed: (() => Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => AdminLogin())))),
                 child: Text("Log In")),
             SizedBox(height:  10,),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.pinkAccent,
+                minimumSize: Size(200, 60)
+              ),
                 onPressed: (() => Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => AdminRegister(role: 'admin',))))),
                 child: Text("Register")),

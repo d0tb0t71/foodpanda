@@ -43,6 +43,7 @@ class _AdminRegisterState extends State<AdminRegister> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Admin Register"),
+        backgroundColor: Colors.pinkAccent,
       ),
       body: Center(
           child: Container(
@@ -109,6 +110,10 @@ class _AdminRegisterState extends State<AdminRegister> {
             height: 10,
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Colors.pinkAccent,
+                minimumSize: Size(100, 40)
+              ),
               onPressed: () {
                 pro.signUp(
                     name: name.text,

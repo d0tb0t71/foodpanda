@@ -44,6 +44,7 @@ class _CustomerRegisterState extends State<CustomerRegister> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Customer Register"),
+        backgroundColor: Colors.pinkAccent,
       ),
       body: Center(
           child: Container(
@@ -110,6 +111,10 @@ class _CustomerRegisterState extends State<CustomerRegister> {
             height: 10,
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Colors.pinkAccent,
+                minimumSize: Size(100, 40)
+              ),
               onPressed: () {
                 pro.signUp(
                     name: name.text,

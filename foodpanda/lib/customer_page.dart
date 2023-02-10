@@ -9,18 +9,27 @@ class CustomerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Customer Page"),),
+      appBar: AppBar(title: Text("Customer Page"),
+      backgroundColor: Colors.pinkAccent,),
       body:  Center(
         child : Column (
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.pinkAccent,
+                minimumSize: Size(200, 60)
+              ),
                 onPressed: (() => Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => CustomerLogin())))),
                 child: Text("Log In")),
             SizedBox(height:  10,),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.pinkAccent,
+                minimumSize: Size(200, 60)
+              ),
                 onPressed: (() => Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => CustomerRegister(role: 'customer',))))),
                 child: Text("Register")),

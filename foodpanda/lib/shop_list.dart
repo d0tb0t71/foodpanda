@@ -26,6 +26,7 @@ class _ShopListState extends State<ShopList> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Foodpanda"),
+        backgroundColor: Colors.pinkAccent,
         actions: [
           IconButton(
               onPressed: () {
@@ -73,9 +74,10 @@ class _ShopListState extends State<ShopList> {
         if (data.docs[index]["role"] == "admin") {
           return Container(
             padding: EdgeInsets.all(20),
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+            margin: EdgeInsets.fromLTRB(5, 5, 5, 0),
             decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xffE3E3E3), width: 1.7),
+              border: Border.all(color: Colors.white, width: 1.7 , ),
+              color: Colors.pinkAccent,
             ),
             child: Row(
               children: [
@@ -97,7 +99,7 @@ class _ShopListState extends State<ShopList> {
                       SizedBox(
                         width: 20,
                       ),
-                      Text("${data.docs[index]["name"]}"),
+                      Text("${data.docs[index]["name"]}" , style: TextStyle(fontSize: 15 , fontWeight: FontWeight.w500),),
                     ],
                   ),
                 ),

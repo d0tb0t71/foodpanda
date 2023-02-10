@@ -125,12 +125,18 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.pinkAccent,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Spacer(),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.pinkAccent,
+                minimumSize: Size(200, 60)
+              ),
                 onPressed: (() => Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => AdminPage())))),
                 child: Text("Admin")),
@@ -138,9 +144,14 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 10,
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.pinkAccent,
+                minimumSize: Size(200, 60)
+              ),
                 onPressed: (() => Navigator.push(context,
                     MaterialPageRoute(builder: ((context) => CustomerPage())))),
                 child: Text("Customer")),
+            SizedBox(height: 30,)
           ],
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:foodpanda/main.dart';
 import '../home_screen.dart';
 
 class Authentication with ChangeNotifier {
+  
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
