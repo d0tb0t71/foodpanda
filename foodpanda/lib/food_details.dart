@@ -24,70 +24,117 @@ class FoodDetails extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(title: Text(foodName)),
-      body: Container(
-        height: size.height,
-        width: size.width,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Spacer(),
-              Image.asset(
-                "assets/images/settings.png",
-                height: 200,
-                width: 200,
-              ),
-              Spacer(),
-              Text(
-                foodName,
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
-              ),
-              Text(
-                "Price : " + foodPrice,
-                style: TextStyle(fontSize: 20),
-              ),
-              Spacer(),
-              Text(
-                foodDes,
-                style: TextStyle(fontSize: 17),
-              ),
-              Spacer(),
-              if (pro.role != "admin")
-                ElevatedButton(
-                    onPressed: () {
-                      FirebaseFirestore.instance
-                          .collection("orders")
-                          .doc("order")
-                          .collection(pro.currentUserUid)
-                          .doc()
-                          .set(
-                        {
-                          "foodName": foodName,
-                          "foodPrice": foodPrice,
-                          "orderBy": pro.name,
-                          "address": pro.address,
-                          "mobile": pro.mobile,
-                        },
-                      );
+      appBar: AppBar(
+        title: Text(foodName),
+        backgroundColor: Colors.pinkAccent,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
+          height: size.height,
+          width: size.width,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Spacer(),
+                Image.asset(
+                  "assets/images/food_icon.png",
+                  height: 300,
+                  width: 300,
+                ),
+                Spacer(),
+                Text(
+                  "Product Name : ",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                Container(
+                  height: 50,
+                  width: size.width,
+                  color: Colors.white,
+                  child: Center(
+                    child: Text(
+                      foodName,
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 50,
+                  width: size.width,
+                  color: Colors.white,
+                  child: Center(
+                    child: Text(
+                      "Price : " + foodPrice,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
+                Spacer(),
+                Text("Description : "),
+                Container(
+                  width: size.width,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Text(
+                        foodDes,
+                        style: TextStyle(fontSize: 17),
+                      ),
+                    ),
+                  ),
+                ),
+                Spacer(),
+                if (pro.role != "admin")
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                          minimumSize: Size(size.width, 40)),
+                      onPressed: () {
+                        FirebaseFirestore.instance
+                            .collection("orders")
+                            .doc("order")
+                            .collection(pro.currentUserUid)
+                            .doc()
+                            .set(
+                          {
+                            "foodName": foodName,
+                            "foodPrice": foodPrice,
+                            "orderBy": pro.name,
+                            "address": pro.address,
+                            "mobile": pro.mobile,
+                          },
+                        );
 
-                      FirebaseFirestore.instance
-                          .collection("orders")
-                          .doc("order")
-                          .collection(shopID)
-                          .doc()
-                          .set(
-                        {
-                          "foodName": foodName,
-                          "foodPrice": foodPrice,
-                          "orderBy": pro.name,
-                          "address": pro.address,
-                          "mobile": pro.mobile,
-                        },
-                      );
-                    },
-                    child: Text("Order Now")),
-            ]),
+                        FirebaseFirestore.instance
+                            .collection("orders")
+                            .doc("order")
+                            .collection(shopID)
+                            .doc()
+                            .set(
+                          {
+                            "foodName": foodName,
+                            "foodPrice": foodPrice,
+                            "orderBy": pro.name,
+                            "address": pro.address,
+                            "mobile": pro.mobile,
+                          },
+                        );
+                      },
+                      child: Text("Order Now")),
+                if (pro.role == "admin")
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                          minimumSize: Size(size.width, 40)),
+                      onPressed: () {},
+                      child: Text("Delete Product")),
+              ]),
+        ),
       ),
     );
   }

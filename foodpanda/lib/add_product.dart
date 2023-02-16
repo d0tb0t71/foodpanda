@@ -55,6 +55,7 @@ class _AddProductState extends State<AddProduct> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Product"),
+        backgroundColor: Colors.pinkAccent,
       ),
       body: Center(
           child: Container(
@@ -101,6 +102,8 @@ class _AddProductState extends State<AddProduct> {
             height: 10,
           ),
           ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.pinkAccent, minimumSize: Size(100, 40)),
               onPressed: () {
                 addProduct(productID.text, productName.text, productPrice.text,
                     productDescription.text);

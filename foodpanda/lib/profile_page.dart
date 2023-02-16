@@ -18,23 +18,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
     var pro = Provider.of<ProfileProvider>(context);
     var auth_pro = Provider.of<Authentication>(context);
 
+    var size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
+        backgroundColor: Colors.pinkAccent,
       ),
-      body: Container(
-        child: Column(children: [
-          Image.asset("assets/images/single-person.png"),
-          Text(pro.name),
-          Text(pro.email),
-          Text(pro.address),
-          Text(pro.mobile),
-          ElevatedButton(
-              onPressed: () {
-                auth_pro.signOut(context: context);
-              },
-              child: Text("Log Out"))
-        ]),
+      body: Padding(
+        padding: const EdgeInsets.all(40.0),
+        child: Container(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset("assets/images/single-person.png"),
+                Text("Name : "),
+                Text(
+                  pro.name,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Email : "),
+                Text(pro.email,
+                    style:
+                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Address : "),
+                Text(pro.address,
+                    style:
+                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Mobile Number : "),
+                Text(pro.mobile,
+                    style:
+                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.red, minimumSize: Size(size.width, 40)),
+                    onPressed: () {
+                      auth_pro.signOut(context: context);
+                    },
+                    child: Text("Log Out"))
+              ]),
+        ),
       ),
     );
   }

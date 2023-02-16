@@ -18,10 +18,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
-    
     // TODO: implement initState
     super.initState();
   }
@@ -35,14 +33,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Foodpanda Homescreen"),
+        backgroundColor: Colors.pinkAccent,
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => OrderList(uid: pro.currentUserUid))));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) =>
+                            OrderList(uid: pro.currentUserUid))));
               },
               icon: Icon(Icons.list)),
-
           IconButton(
               onPressed: () {
                 Navigator.push(context,
@@ -96,21 +97,29 @@ class _HomeScreenState extends State<HomeScreen> {
         return data.size != null
             ? Container(
                 height: 80,
-                color: Colors.amber,
+                color: Colors.pinkAccent,
                 margin: EdgeInsets.all(5),
                 padding: EdgeInsets.all(5),
                 child: Center(
                   child: Row(
                     children: [
                       Image.asset(
-                        "assets/images/settings.png",
+                        "assets/images/food_icon.png",
                         height: 60,
                         width: 60,
                       ),
                       Spacer(),
-                      Text(data.docs[index]["name"]),
+                      Text(
+                        data.docs[index]["name"],
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                       Spacer(),
                       ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.white, minimumSize: Size(70, 40)),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -118,10 +127,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     builder: ((context) => FoodDetails(
                                           foodName: data.docs[index]["name"],
                                           foodPrice: data.docs[index]["price"],
-                                          foodDes: data.docs[index]["des"], shopID: "",
+                                          foodDes: data.docs[index]["des"],
+                                          shopID: "",
                                         ))));
                           },
-                          child: Text("Details"))
+                          child: Text(
+                            "Details",
+                            style: TextStyle(color: Colors.black),
+                          ))
                     ],
                   ),
                 ),

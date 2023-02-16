@@ -15,17 +15,13 @@ class ShopList extends StatefulWidget {
 }
 
 class _ShopListState extends State<ShopList> {
-  
- 
-
   @override
   Widget build(BuildContext context) {
+    var pro = Provider.of<ProfileProvider>(context);
 
-     var pro = Provider.of<ProfileProvider>(context);
-     
     return Scaffold(
       appBar: AppBar(
-        title: Text("Foodpanda"),
+        title: Text("Shop List"),
         backgroundColor: Colors.pinkAccent,
         actions: [
           IconButton(
@@ -76,7 +72,10 @@ class _ShopListState extends State<ShopList> {
             padding: EdgeInsets.all(20),
             margin: EdgeInsets.fromLTRB(5, 5, 5, 0),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 1.7 , ),
+              border: Border.all(
+                color: Colors.white,
+                width: 1.7,
+              ),
               color: Colors.pinkAccent,
             ),
             child: Row(
@@ -86,7 +85,9 @@ class _ShopListState extends State<ShopList> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => ProductList(shopID: data.docs[index]["uid"],))));
+                            builder: ((context) => ProductList(
+                                  shopID: data.docs[index]["uid"],
+                                ))));
                   },
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,7 +100,13 @@ class _ShopListState extends State<ShopList> {
                       SizedBox(
                         width: 20,
                       ),
-                      Text("${data.docs[index]["name"]}" , style: TextStyle(fontSize: 15 , fontWeight: FontWeight.w500),),
+                      Text(
+                        "${data.docs[index]["name"]}",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ],
                   ),
                 ),

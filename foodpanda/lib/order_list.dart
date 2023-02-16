@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'order_details.dart';
 
 class OrderList extends StatefulWidget {
-  OrderList({super.key , required this.uid});
+  OrderList({super.key, required this.uid});
 
   String uid;
 
@@ -17,13 +17,13 @@ class OrderList extends StatefulWidget {
 class _OrderListState extends State<OrderList> {
   @override
   Widget build(BuildContext context) {
-
     var pro = Provider.of<ProfileProvider>(context);
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Foodpanda Homescreen"),
+        title: Text("Order List"),
+        backgroundColor: Colors.pinkAccent,
         actions: [],
       ),
       body: Container(
@@ -61,34 +61,40 @@ class _OrderListState extends State<OrderList> {
         return data.size != null
             ? Container(
                 height: 80,
-                color: Colors.amber,
+                color: Colors.pinkAccent,
                 margin: EdgeInsets.all(5),
                 padding: EdgeInsets.all(5),
                 child: Center(
                   child: Row(
                     children: [
                       Image.asset(
-                        "assets/images/settings.png",
+                        "assets/images/ordder_icon2.png",
                         height: 60,
                         width: 60,
                       ),
                       Spacer(),
-                      Text(data.docs[index]["foodName"]),
+                      Text(data.docs[index]["foodName"],
+                          style: TextStyle(color: Colors.white, fontSize: 17)),
                       Spacer(),
                       ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.white, minimumSize: Size(70, 40)),
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: ((context) => OrderDetails(
-                                          foodName: data.docs[index]["foodName"],
-                                          foodPrice: data.docs[index]["foodPrice"],
+                                          foodName: data.docs[index]
+                                              ["foodName"],
+                                          foodPrice: data.docs[index]
+                                              ["foodPrice"],
                                           orderBy: data.docs[index]["orderBy"],
                                           mobile: data.docs[index]["mobile"],
                                           address: data.docs[index]["address"],
                                         ))));
                           },
-                          child: Text("Details"))
+                          child: Text("Details",
+                              style: TextStyle(color: Colors.black)))
                     ],
                   ),
                 ),
@@ -98,5 +104,4 @@ class _OrderListState extends State<OrderList> {
       itemCount: data.size,
     );
   }
-
 }

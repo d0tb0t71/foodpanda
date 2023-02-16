@@ -20,7 +20,7 @@ class OrderDetails extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(title: Text("Order Details")),
+      appBar: AppBar(title: Text("Order Details") , backgroundColor: Colors.pinkAccent,),
       body: Container(
         height: size.height,
         width: size.width,

@@ -89,12 +89,12 @@ class _ProductListState extends State<ProductList> {
                   child: Row(
                     children: [
                       Image.asset(
-                        "assets/images/settings.png",
+                        "assets/images/food_icon.png",
                         height: 60,
                         width: 60,
                       ),
                       Spacer(),
-                      Text(data.docs[index]["name"]),
+                      Text(data.docs[index]["name"] , style: TextStyle(color: Colors.white , fontSize: 17 , fontWeight:  FontWeight.w500)),
                       Spacer(),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(

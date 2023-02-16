@@ -127,8 +127,14 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         backgroundColor: Colors.pinkAccent,
       ),
-      body: Center(
-        child: Column(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+
+          Image.asset("assets/images/foodpanda_bg.png" , fit: BoxFit.fill,),
+
+          Center(
+          child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Spacer(),
@@ -155,6 +161,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+        ],
+      )
     );
   }
 }
