@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:foodpanda/progress_view.dart';
 import 'package:foodpanda/provider/profile_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +41,7 @@ class _OrderListState extends State<OrderList> {
                     return const Center(child: Text("Something went wrong"));
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return ProgressView();
                   }
 
                   final data = snapshot.data;

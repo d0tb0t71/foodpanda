@@ -16,6 +16,7 @@ class FoodDetails extends StatelessWidget {
   String foodPrice;
   String foodDes;
   String shopID;
+  
 
   @override
   Widget build(BuildContext context) {

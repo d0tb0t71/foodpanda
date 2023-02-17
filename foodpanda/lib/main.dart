@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpanda/customer_page.dart';
 import 'package:foodpanda/home_screen.dart';
+import 'package:foodpanda/progress_view.dart';
 import 'package:foodpanda/provider/auth_provider.dart';
 import 'package:foodpanda/provider/profile_provider.dart';
 import 'package:provider/provider.dart';
@@ -102,7 +103,7 @@ class _MiddleOfHomeAndSignInState extends State<MiddleOfHomeAndSignIn> {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return ProgressView();
         }
         if (snapshot.data != null) {
           Timer(Duration(seconds: 5), () {
@@ -111,7 +112,7 @@ class _MiddleOfHomeAndSignInState extends State<MiddleOfHomeAndSignIn> {
                 context, MaterialPageRoute(builder: (_) => DashBoard()));
           });
 
-          return CircularProgressIndicator();
+          return ProgressView();
         }
         return const MyHomePage(title: "Foodpanda");
       },

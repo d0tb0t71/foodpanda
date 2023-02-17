@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpanda/add_product.dart';
 import 'package:foodpanda/profile_page.dart';
+import 'package:foodpanda/progress_view.dart';
 import 'package:foodpanda/provider/profile_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const Center(child: Text("Something went wrong"));
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return ProgressView();
                   }
 
                   final data = snapshot.data;
